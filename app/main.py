@@ -12,7 +12,10 @@ dto = load_data('./cleaned_togo_dapaong_qc.csv')
 st.title('Renewable Energy Data Dashboard')
 
 # Navigation sidebar
-page = st.sidebar.selectbox("Select a page", ['Benin-Malanville', 'Sierra Leone-Bumbuna', 'Togo-Dapaong_qc'])
+page = st.sidebar.radio("Select a section", ['Data Overview', 'Interactive Visualizations'])
+
+# Sidebar dropdown for dataset selection (available in both sections)
+selected_dataset = st.sidebar.selectbox("Select Dataset", ['Benin-Malanville', 'Sierra Leone-Bumbuna', 'Togo-Dapaong_qc'])
 
 # Helper function to create scatter plots
 def scatter_plot(data, x_col, y_col, title):
@@ -51,51 +54,38 @@ def interactive_correlation_heatmap(data):
     if selected_columns:
         correlation_heatmap(data[selected_columns])
 
-# Display data based on user selection
-if page == 'Benin-Malanville':
-    st.subheader('Benin-Malanville Data')
-    st.write(dbe)  # Display the Benin-Malanville data
-    
-    # Example: Calculate and display average of GHI
-    average_ghi_benin = calculate_average(dbe, 'GHI')
-    st.write(f"Average GHI in Benin-Malanville: {average_ghi_benin}")
-    
-    # Plot distribution of GHI
-    st.subheader('Distribution of GHI')
-    plot_distribution(dbe, 'GHI')
-
-    # Interactive visualizations
-    interactive_scatter_plot(dbe)
-    interactive_correlation_heatmap(dbe)
-
-elif page == 'Sierra Leone-Bumbuna':
-    st.subheader('Sierra Leone-Bumbuna Data')
-    st.write(dsi)  # Display the Sierra Leone-Bumbuna data
-    
-    # Example: Calculate and display average of GHI
-    average_ghi_sierra = calculate_average(dsi, 'GHI')
-    st.write(f"Average GHI in Sierra Leone-Bumbuna: {average_ghi_sierra}")
-    
-    # Plot distribution of GHI
-    st.subheader('Distribution of GHI')
-    plot_distribution(dsi, 'GHI')
-
-    # Interactive visualizations
-    interactive_scatter_plot(dsi)
-    interactive_correlation_heatmap(dsi)
-
+# Select the dataset based on user choice
+if selected_dataset == 'Benin-Malanville':
+    data = dbe
+    location_name = 'Benin-Malanville'
+elif selected_dataset == 'Sierra Leone-Bumbuna':
+    data = dsi
+    location_name = 'Sierra Leone-Bumbuna'
 else:
-    st.subheader('Togo-Dapaong_qc Data')
-    st.write(dto)  # Display the Togo-Dapaong_qc data
+    data = dto
+    location_name = 'Togo-Dapaong_qc'
+
+# Section 1: Data Overview
+if page == 'Data Overview':
+    st.subheader(f'{location_name} Data')
+    st.write(data)  # Display the selected dataset
     
     # Example: Calculate and display average of GHI
-    average_ghi_togo = calculate_average(dto, 'GHI')
-    st.write(f"Average GHI in Togo-Dapaong_qc: {average_ghi_togo}")
+    average_ghi = calculate_average(data, 'GHI')
+    st.write(f"Average GHI in {location_name}: {average_ghi}")
     
     # Plot distribution of GHI
     st.subheader('Distribution of GHI')
-    plot_distribution(dto, 'GHI')
+    plot_distribution(data, 'GHI')
 
-    # Interactive visualizations
-    interactive_scatter_plot(dto)
-    interactive_correlation_heatmap(dto)
+# Section 2: Interactive Visualizations
+elif page == 'Interactive Visualizations':
+    st.subheader(f'Interactive Visualizations for {location_name}')
+    
+    # Choose which interactive visualization to show
+    visualization_type = st.radio("Choose Visualization Type", ['Scatter Plot', 'Correlation Heatmap'])
+
+    if visualization_type == 'Scatter Plot':
+        interactive_scatter_plot(data)
+    elif visualization_type == 'Correlation Heatmap':
+        interactive_correlation_heatmap(data)
