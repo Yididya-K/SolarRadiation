@@ -3,7 +3,18 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 def load_data(file_path):
-    return pd.read_csv(file_path)
+    try:
+        data = pd.read_csv(file_path)
+        return data
+    except FileNotFoundError:
+        print(f"File {file_path} not found.")
+        return None
+    except pd.errors.EmptyDataError:
+        print(f"File {file_path} is empty.")
+        return None
+    except pd.errors.ParserError:
+        print(f"Error parsing file {file_path}.")
+        return None
 
 def calculate_average(data, column):
     return data[column].mean()
