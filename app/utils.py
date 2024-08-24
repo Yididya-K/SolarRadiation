@@ -17,7 +17,10 @@ def load_data(file_path):
         return None
 
 def calculate_average(data, column):
-    return data[column].mean()
+    if column in data.columns:
+        return data[column].mean()
+    else:
+        raise ValueError(f"Column '{column}' does not exist in the data.")
 
 def plot_distribution(data, column):
     plt.figure(figsize=(8, 6))
