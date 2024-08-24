@@ -3,18 +3,24 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 
-def load_data(file_path):
+import gdown
+
+
+def load_data(file_url):
     try:
-        data = pd.read_csv(file_path)
+        # Download the file
+        gdown.download(file_url, 'temp_data.csv', quiet=False)
+        # Load the downloaded data
+        data = pd.read_csv('temp_data.csv')
         return data
     except FileNotFoundError:
-        st.error(f"File {file_path} not found.")
+        st.error(f"File not found.")
         return None
     except pd.errors.EmptyDataError:
-        st.error(f"File {file_path} is empty.")
+        st.error(f"File is empty.")
         return None
     except pd.errors.ParserError:
-        st.error(f"Error parsing file {file_path}.")
+        st.error(f"Error parsing file.")
         return None
     except Exception as e:
         st.error(f"An unexpected error occurred: {str(e)}")
