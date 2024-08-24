@@ -5,7 +5,7 @@ import streamlit as st
 
 import gdown
 
-
+@st.cache_data
 def load_data(file_url):
     try:
         # Download the file
