@@ -16,24 +16,7 @@ dsi = load_data(file_url_sierra)
 dto = load_data(file_url_togo)
 
 
-# Check if data loaded correctly
-if dbe is not None:
-    st.write("Benin-Malanville Data Loaded Successfully")
-    st.write(dbe.head())  # Display the first few rows for verification
-else:
-    st.write("Failed to load Benin-Malanville Data")
 
-if dsi is not None:
-    st.write("Sierra Leone-Bumbuna Data Loaded Successfully")
-    st.write(dsi.head())  # Display the first few rows for verification
-else:
-    st.write("Failed to load Sierra Leone-Bumbuna Data")
-
-if dto is not None:
-    st.write("Togo-Dapaong_qc Data Loaded Successfully")
-    st.write(dto.head())  # Display the first few rows for verification
-else:
-    st.write("Failed to load Togo-Dapaong_qc Data")
 
 # Title of the dashboard
 st.title('Renewable Energy Data Dashboard')
