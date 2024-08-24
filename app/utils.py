@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import st
+import streamlit as st
 
 def load_data(file_path):
     try:
