@@ -6,7 +6,7 @@ import seaborn as sns
 # Load the cleaned data
 dbe = load_data('./cleaned_benin_malanville.csv')
 dsi = load_data('./cleaned_sierra_leone_bumbuna.csv')
-dto = load_data('./cleaned_togo_dapaong_qc.csv')
+dto = load_data('./cleaned_togo_dapaong_qc.csv') 
 
 # Title of the dashboard
 st.title('Renewable Energy Data Dashboard')
