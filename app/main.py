@@ -3,10 +3,18 @@ from utils import load_data, calculate_average, plot_distribution
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Load the cleaned data
-dbe = load_data('./cleaned_benin_malanville.csv')
-dsi = load_data('./cleaned_sierra_leone_bumbuna.csv')
-dto = load_data('./cleaned_togo_dapaong_qc.csv') 
+file_id_benin = '1DY0AgTabaKKMkyAxnZrrDnx_TTNYlqvT'
+file_id_sierra = '1WzQE79qQtj4McrkgJqNduCPfL8pj4rNn'
+file_id_togo = '1pZkFkGf8JvL2ZYbQm6Z2hTg_j7quDdIQ'
+
+file_url_benin = f'https://drive.google.com/uc?id={file_id_benin}'
+file_url_sierra = f'https://drive.google.com/uc?id={file_id_sierra}'
+file_url_togo = f'https://drive.google.com/uc?id={file_id_togo}'
+
+dbe = load_data(file_url_benin)
+dsi = load_data(file_url_sierra)
+dto = load_data(file_url_togo)
+
 
 # Check if data loaded correctly
 if dbe is not None:
